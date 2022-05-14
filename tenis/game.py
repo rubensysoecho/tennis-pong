@@ -43,18 +43,16 @@ class Game:
     def __process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.__running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self.__running = False
-                if event.key == pygame.K_UP and self.__right_paddle.y - self.__right_paddle.VEL >= 0:
-                    self.__right_paddle.update(up=True)
-                elif event.key == pygame.K_DOWN and self.__right_paddle.y + self.__right_paddle.VEL + self.__right_paddle.height <= cfg_item("screen_size")[1]:
-                    self.__right_paddle.update(up=False)
-                elif event.key == pygame.K_w and self.__left_paddle.y - self.__left_paddle.VEL >= 0:
-                    self.__left_paddle.update(up=True)
-                elif event.key == pygame.K_s and self.__left_paddle.y + self.__left_paddle.VEL + self.__left_paddle.height <= cfg_item("screen_size")[1]:
-                    self.__left_paddle.update(up=False)         
+                self.__running = False   
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP] and self.__right_paddle.y - self.__right_paddle.VEL >= 0:
+            self.__right_paddle.update(up=True)
+        elif keys[pygame.K_DOWN] and self.__right_paddle.y + self.__right_paddle.VEL + self.__right_paddle.height <= cfg_item("screen_size")[1]:
+            self.__right_paddle.update(up=False)
+        elif keys[pygame.K_w] and self.__left_paddle.y - self.__left_paddle.VEL >= 0:
+            self.__left_paddle.update(up=True)
+        elif keys[pygame.K_s] and self.__left_paddle.y + self.__left_paddle.VEL + self.__left_paddle.height <= cfg_item("screen_size")[1]:
+            self.__left_paddle.update(up=False)         
 
     def __update(self):
         self.__ball.update()        
