@@ -2,14 +2,23 @@
     "font" : {
         "name": "sansanation",
         "file" : ["tenis.assets.fonts", "Sansation.ttf"],
-        "size" : 16
+        "size" : 50
     },
+    "entities" : {
+        "ball" : {
+            "speed": 5, 
+            "radius": 7
+        },
+        "paddle" : {
+            "speed": 4,
+            "size": [20, 100]
+        }
+    },
+    
     "game_title" : "Tenis",
     "background_color": [0,0,0],
     "object_color": [255, 255, 255], 
     "screen_size" : [640,480] ,
-    "paddle_size": [20, 100],
-    "ball_radius": 7,
     "winning_score": 10,
     "won_left": "Left Player Won",
     "won_right": "Right Player Won",

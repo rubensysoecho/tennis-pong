@@ -1,7 +1,5 @@
-from turtle import right
 import pygame
 from enum import Enum
-from tenis.config import cfg_item
 
 class PaddleType(Enum):
     Right = "right",
@@ -10,19 +8,20 @@ class PaddleType(Enum):
 class Paddle:
     VEL = 4
 
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, size, speed, color):
         self.x = self.original_x = x
         self.y = self.original_y = y
-        self.width = width
-        self.height = height
+        self.width = size[0]
+        self.height = size[1]
+        self.speed = speed
 
-        self.__color = cfg_item("object_color")
+        self.__color = color
 
     def update(self, up=True):
         if up:
-            self.y -= self.VEL
+            self.y -= self.speed
         else:
-            self.y += self.VEL
+            self.y += self.speed
 
     def render(self, win):
         pygame.draw.rect(win, self.__color, (self.x, self.y, self.width, self.height))                
