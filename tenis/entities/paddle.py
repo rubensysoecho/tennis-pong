@@ -14,8 +14,8 @@ class Paddle:
         self.width = size[0]
         self.height = size[1]
         self.speed = speed
-
-        self.__color = color
+        self.color = color
+        self.win_text = None
 
     def update(self, up=True):
         if up:
@@ -24,8 +24,9 @@ class Paddle:
             self.y += self.speed
 
     def render(self, win):
-        pygame.draw.rect(win, self.__color, (self.x, self.y, self.width, self.height))                
+        pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))                
 
     def reset(self):
         self.x = self.original_x
         self.y = self.original_y
+        self.win_text = None

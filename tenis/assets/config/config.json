@@ -11,10 +11,15 @@
         },
         "paddle" : {
             "speed": 4,
-            "size": [20, 100]
+            "size": [20, 100],
+            "right_color": [24, 38, 236],
+            "left_color": [236, 24, 24]
         }
     },
-    
+    "images" : {        
+        "path" : "tenis.assets.images",
+        "filename": "court.png"        
+    }, 
     "game_title" : "Tenis",
     "background_color": [0,0,0],
     "object_color": [255, 255, 255], 

@@ -4,12 +4,16 @@ from tenis.config import cfg_item
 from tenis.entities.paddle import Paddle, PaddleType
 from tenis.entities.ball import Ball
 from tenis.entities.score import Score
+import os
 
 class Game:
     def __init__(self):
         pygame.init()
+        
         self.__screen_size = cfg_item("screen_size")
-        self.__screen = pygame.display.set_mode(self.__screen_size, 0, 32)
+        self.__screen = pygame.display.set_mode(self.__screen_size, 0 , 32)
+        with resources.path(cfg_item("images", "path"), cfg_item("images", "filename")) as img_file:
+            self.__background_img = pygame.image.load(img_file).convert_alpha()   
         pygame.display.set_caption(cfg_item("game_title"))
 
         with resources.path(*cfg_item("font", "file")) as font_file:
@@ -18,8 +22,8 @@ class Game:
         self.__running = False
         self.__time_per_frame = 1000.0/cfg_item("timing", "fps")
 
-        self.__left_paddle = Paddle(10, self.__screen_size[1]//2 - cfg_item("entities", "paddle", "size")[1] //2, cfg_item("entities", "paddle", "size"), cfg_item("entities", "paddle", "speed"), cfg_item("object_color"))
-        self.__right_paddle = Paddle(self.__screen_size[0] - 10 - cfg_item("entities", "paddle", "size")[0], self.__screen_size[1] //2 - cfg_item("entities", "paddle", "size")[1]//2, cfg_item("entities", "paddle", "size"), cfg_item("entities", "paddle", "speed"), cfg_item("object_color"))
+        self.__left_paddle = Paddle(10, self.__screen_size[1]//2 - cfg_item("entities", "paddle", "size")[1] //2, cfg_item("entities", "paddle", "size"), cfg_item("entities", "paddle", "speed"), cfg_item("entities", "paddle", "left_color"))
+        self.__right_paddle = Paddle(self.__screen_size[0] - 10 - cfg_item("entities", "paddle", "size")[0], self.__screen_size[1] //2 - cfg_item("entities", "paddle", "size")[1]//2, cfg_item("entities", "paddle", "size"), cfg_item("entities", "paddle", "speed"), cfg_item("entities", "paddle", "right_color"))
         self.__ball = Ball(self.__screen_size[0] // 2, self.__screen_size[1] // 2, cfg_item("entities", "ball", "radius"), cfg_item("entities", "ball", "speed"), cfg_item("object_color"))
 
         self.__left_score = Score(0, self.__font)
@@ -70,24 +74,25 @@ class Game:
 
         if self.__left_score.score >= cfg_item("winning_score"):
             self.__left_score.won = True
-            self.__winner = self.__left_score
-            self.__left_score.win_text = cfg_item("won_left")
+            self.__winner = self.__left_paddle
+            self.__left_paddle.win_text = cfg_item("won_left")
         elif self.__right_score.score >= cfg_item("winning_score"):
             self.__right_score.won = True
-            self.__winner = self.__right_score
-            self.__right_score.win_text = cfg_item("won_right")                
+            self.__winner = self.__right_paddle
+            self.__right_paddle.win_text = cfg_item("won_right")                
         pygame.display.update()
         
     def __render(self):
-        self.__screen.fill(cfg_item("background_color"))
+        #self.__screen.fill(cfg_item("background_color"))
+        self.__screen.blit(self.__background_img, [0,0])
         self.__ball.render(self.__screen)
         self.__right_paddle.render(self.__screen)
         self.__left_paddle.render(self.__screen)         
-        self.__left_score.render(self.__screen, PaddleType.Left, self.__screen_size, cfg_item("object_color"))
-        self.__right_score.render(self.__screen, PaddleType.Right, self.__screen_size, cfg_item("object_color"))
+        self.__left_score.render(self.__screen, PaddleType.Left, self.__screen_size, self.__left_paddle.color)
+        self.__right_score.render(self.__screen, PaddleType.Right, self.__screen_size, self.__right_paddle.color)
         
         if self.__winner:
-            self.__final_text = self.__font.render(self.__winner.win_text, 1, cfg_item("object_color"))
+            self.__final_text = self.__font.render(self.__winner.win_text, 1, self.__winner.color)
             self.__screen.blit(self.__final_text, (self.__screen_size[0]//2 - self.__final_text.get_width() //2, self.__screen_size[1]//2 - self.__final_text.get_height()//2))
             pygame.display.update()
             pygame.time.delay(500)

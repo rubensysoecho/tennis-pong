@@ -4,8 +4,7 @@ from tenis.entities.paddle import PaddleType
 class Score:    
     def __init__(self, score, font):
         self.score = score 
-        self.won = False
-        self.win_text = None              
+        self.won = False                      
         self.__font = font
         
     def render(self, screen, paddle_side, screen_size, color):
@@ -20,5 +19,4 @@ class Score:
     
     def reset(self):
         self.score = 0
-        self.won = False
-        self.win_text = None
+        self.won = False        
