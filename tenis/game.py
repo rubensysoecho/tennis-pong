@@ -1,7 +1,7 @@
 from importlib import resources
 import pygame
 from tenis.config import cfg_item
-from tenis.entities.paddle import Paddle
+from tenis.entities.paddle import Paddle, PaddleType
 from tenis.entities.ball import Ball
 from tenis.entities.score import Score
 
@@ -24,8 +24,7 @@ class Game:
         self.__left_score = Score(0)
         self.__right_score = Score(0)
 
-        self.__won = False
-        self.__win_text = ""
+        self.__winner = None
 
     def run(self):
         self.__running = True
@@ -38,7 +37,7 @@ class Game:
             while time_since_last_update > self.__time_per_frame:
                 time_since_last_update -= self.__time_per_frame
                 self.__process_events()
-                self.__update()
+                self.__update()            
 
             self.__render()
 
@@ -60,6 +59,7 @@ class Game:
 
     def __update(self):
         self.__ball.update()  
+        self.__ball.handle_colision(self.__left_paddle, self.__right_paddle)
         if self.__ball.x < 0:
             self.__right_score.update()
             self.__ball.reset()
@@ -68,11 +68,13 @@ class Game:
             self.__ball.reset()  
 
         if self.__left_score.score >= cfg_item("winning_score"):
-            self.__won = True
-            self.__win_text = cfg_item("won_left")
+            self.__left_score.won = True
+            self.__winner = self.__left_score
+            self.__left_score.win_text = cfg_item("won_left")
         elif self.__right_score.score >= cfg_item("winning_score"):
-            self.__won = True
-            self.__win_text = cfg_item("won_right")                
+            self.__right_score.won = True
+            self.__winner = self.__right_score
+            self.__right_score.win_text = cfg_item("won_right")                
         pygame.display.update()
         
     def __render(self):
@@ -80,20 +82,20 @@ class Game:
         self.__ball.render(self.__screen)
         self.__right_paddle.render(self.__screen)
         self.__left_paddle.render(self.__screen)         
-        self.__screen.blit(self.__left_score.render(), (cfg_item("screen_size")[0]//4-self.__left_score.render().get_width()//2, 20))
-        self.__screen.blit(self.__right_score.render(), (cfg_item("screen_size")[0]*(3/4)-self.__right_score.render().get_width()//2, 20))        
+        self.__left_score.render(self.__screen, PaddleType.Left)
+        self.__right_score.render(self.__screen, PaddleType.Right)
         
-        if self.__won:
-            self.__final_text = self.__font.render(self.__win_text, 1, cfg_item("object_color"))
+        if self.__winner:
+            self.__final_text = self.__font.render(self.__winner.win_text, 1, cfg_item("object_color"))
             self.__screen.blit(self.__final_text, (cfg_item("screen_size")[0]//2 - self.__final_text.get_width() //2, cfg_item("screen_size")[1]//2 - self.__final_text.get_height()//2))
             pygame.display.update()
-            pygame.time.delay(1000)
+            pygame.time.delay(500)
             self.__ball.reset()
             self.__left_paddle.reset()
             self.__left_score.reset()
             self.__right_paddle.reset()
             self.__right_score.reset() 
-            self.__won = False
+            self.__winner = None
         
     def __quit(self):
         pygame.quit()
