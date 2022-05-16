@@ -6,30 +6,54 @@
     },
     "entities" : {
         "ball" : {
-            "speed": 5, 
-            "radius": 7
+            "speed": 6, 
+            "radius": 7,
+            "color": [252, 238, 4]
         },
         "paddle" : {
             "speed": 4,
             "size": [20, 100],
             "right_color": [24, 38, 236],
             "left_color": [236, 24, 24]
+        },
+        "score": {
+            "max": 10
         }
     },
-    "images" : {        
-        "path" : "tenis.assets.images",
-        "filename": "court.png"        
+    "images" : {
+        "background": {
+            "file" : ["tenis.assets.images", "court.png"]
+        }        
     }, 
     "game_title" : "Tenis",
     "background_color": [0,0,0],
     "object_color": [255, 255, 255], 
     "screen_size" : [640,480] ,
-    "winning_score": 10,
-    "won_left": "Left Player Won",
-    "won_right": "Right Player Won",
+    "winning": {        
+        "right": "Right Player Won",
+        "left": "Left Player Won"
+    },    
     "timing" : {
         "fps": 60,
         "refresh_stats_time": 1000.0,
         "fps_stats_pos" : [0, 2]
+    },
+    "sfx" : {
+        "volume" : 1.0, 
+        "shot" : {
+            "name" : "tenis_shot",
+            "audio_file" : ["tenis.assets.sfx","shot.wav"]
+        },
+        "point" : {
+            "name" : "winning_point",
+            "audio_file" : ["tenis.assets.sfx", "win.wav"]
+        }
+    },
+    "music" : {
+        "volume" : 0.5,
+        "music" : {
+            "name" : "music",
+            "audio_file" : ["tenis.assets.music", "music.wav"]
+        }
     }
 }
