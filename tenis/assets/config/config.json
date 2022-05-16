@@ -55,5 +55,20 @@
             "name" : "music",
             "audio_file" : ["tenis.assets.music", "music.wav"]
         }
-    }
+    },
+    "states" : {
+        "intro" : {
+            "label" : {
+                "text" : "Tenis Game VIU 71 GIIN",
+                "color" : [200, 60, 60],
+                "position" : [240, 100]
+            },
+            "button" : {
+                "text" : "Click To Start The Game",
+                "color" : [140, 140, 190],
+                "hover_color" : [200, 200, 250],
+                "position" : [240, 320]
+            }
+        }     
+    }    
 }

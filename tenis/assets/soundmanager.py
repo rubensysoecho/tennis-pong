@@ -23,19 +23,18 @@ class SoundMannager:
         else:
             raise Exception("SoundManager doesn't allow multiple instances")
 
-    def play_sound(self, name):
-        with resources.path(*cfg_item("sfx", name, "audio_file")) as audio_file:
+    def play_sound(self, file):
+        with resources.path(*file) as audio_file:
             sound = pygame.mixer.Sound(audio_file)
         sound.set_volume(self.__sound_volume)
         sound.play()
 
-    def play_music(self, name):
-        if name is self.__current_music:
-            return
-        
-        with resources.path(*cfg_item("music", name, "audio_file")) as music_file:            
+    def play_music(self, file):
+        if file is self.__current_music:
+            return        
+        with resources.path(*file) as music_file:            
             pygame.mixer.music.load(music_file)
         pygame.mixer.music.set_volume(self.__music_volume)
-        self.__current_music = name
+        self.__current_music = file
         pygame.mixer.music.play(-1)
         

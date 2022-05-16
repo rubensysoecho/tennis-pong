@@ -67,16 +67,16 @@ class Game:
             self.__left_paddle.update(up=False)         
 
     def __update(self):
-        SoundMannager.instance().play_music("music")
+        SoundMannager.instance().play_music(cfg_item("music", "music", "audio_file"))
         self.__ball.update()  
         if self.__ball.handle_colision(self.__left_paddle, self.__right_paddle, self.__screen_size):
-            SoundMannager.instance().play_sound("shot")
+            SoundMannager.instance().play_sound(cfg_item("sfx", "shot", "audio_file"))
         if self.__ball.x < 0:
-            SoundMannager.instance().play_sound("point")            
+            SoundMannager.instance().play_sound(cfg_item("sfx", "shot", "audio_file"))            
             self.__right_score.update()
             self.__ball.reset()
         elif self.__ball.x > self.__screen_size[0]:
-            SoundMannager.instance().play_sound("point")        
+            SoundMannager.instance().play_sound(cfg_item("sfx", "point", "audio_file"))        
             self.__left_score.update()
             self.__ball.reset()  
 
