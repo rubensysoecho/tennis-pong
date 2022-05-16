@@ -62,14 +62,15 @@
             "label" : {
                 "text" : "Tenis Game VIU 71 GIIN",
                 "color" : [200, 60, 60],
-                "position" : [240, 100]
+                "position" : [320, 100]
             },
             "button" : {
                 "text" : "Click To Start The Game",
                 "color" : [140, 140, 190],
                 "hover_color" : [200, 200, 250],
-                "position" : [240, 320]
+                "position" : [320, 320]
             }
-        }     
-    }    
+        },
+        "game_over_time" : 5000   
+    }     
 }

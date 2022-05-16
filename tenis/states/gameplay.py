@@ -74,12 +74,12 @@ class GamePlay(State):
             self.__left_score.won = True
             self.__winner = self.__left_paddle
             self.__left_paddle.win_text = cfg_item("winning","left")
-            self.done = True
+            self.game_over
         elif self.__right_score.score >= self.__max_score:
             self.__right_score.won = True
             self.__winner = self.__right_paddle
             self.__right_paddle.win_text = cfg_item("winning","right")                
-            self.done = True
+            self.game_over()
         pygame.display.update()
 
     def render(self, screen):
@@ -97,6 +97,10 @@ class GamePlay(State):
 
     def exit(self):
         pass
+
+    def game_over(self):
+        self.done = True
+        SoundMannager.instance().stop_music(cfg_item('states', 'game_over_time'))
 
     def __reset(self, screen):        
         self.__final_text = self.__font.render(self.__winner.win_text, 1, self.__winner.color)

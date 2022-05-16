@@ -37,4 +37,8 @@ class SoundMannager:
         pygame.mixer.music.set_volume(self.__music_volume)
         self.__current_music = file
         pygame.mixer.music.play(-1)
+
+    def stop_music(self, time = 100):
+        pygame.mixer.music.fadeout(time)
+        self.__current_music = None
         

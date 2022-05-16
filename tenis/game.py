@@ -1,6 +1,5 @@
 from importlib import resources
 import pygame
-from tenis.assets.soundmanager import SoundMannager
 from tenis.config import Config, cfg_item
 from tenis.states.statemanager import StateManager
 
@@ -48,7 +47,8 @@ class Game:
             self.__state_manager.handle_input(event)                             
 
     def __update(self, delta_time):
-        self.__state_manager.update(delta_time)        
+        self.__state_manager.update(delta_time)  
+        pygame.display.update()      
         
     def __render(self):
         self.__screen.fill(cfg_item("background_color")) 
