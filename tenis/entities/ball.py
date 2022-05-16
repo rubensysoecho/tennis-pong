@@ -22,11 +22,11 @@ class Ball:
             self.y_vel *= -1        
 
         if self.x_vel < 0:
-            if self.y >= left_paddle.y and self.y <= left_paddle.y + left_paddle.height:
-                if self.x - self.radius <= left_paddle.x + left_paddle.width:             
+            if self.y >= left_paddle.position.y and self.y <= left_paddle.position.y + left_paddle.height:
+                if self.x - self.radius <= left_paddle.position.x + left_paddle.width:             
                     self.x_vel *= -1
 
-                    middle_y = left_paddle.y + left_paddle.height / 2
+                    middle_y = left_paddle.position.y + left_paddle.height / 2
                     difference_in_y = middle_y - self.y
                     reduction_factor = (left_paddle.height / 2) / self.speed
                     y_vel = difference_in_y / reduction_factor
@@ -34,11 +34,11 @@ class Ball:
                     return True  
 
         else:
-            if self.y >= right_paddle.y and self.y <= right_paddle.y + right_paddle.height:
-                if self.x + self.radius >= right_paddle.x:                    
+            if self.y >= right_paddle.position.y and self.y <= right_paddle.position.y + right_paddle.height:
+                if self.x + self.radius >= right_paddle.position.x:                    
                     self.x_vel *= -1
 
-                    middle_y = right_paddle.y + right_paddle.height / 2
+                    middle_y = right_paddle.position.y + right_paddle.height / 2
                     difference_in_y = middle_y - self.y
                     reduction_factor = (right_paddle.height / 2) / self.speed
                     y_vel = difference_in_y / reduction_factor

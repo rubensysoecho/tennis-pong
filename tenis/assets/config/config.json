@@ -2,7 +2,8 @@
     "font" : {
         "name": "sansanation",
         "file" : ["tenis.assets.fonts", "Sansation.ttf"],
-        "size" : 50
+        "size" : 50,
+        "intro_size" : 20
     },
     "entities" : {
         "ball" : {
