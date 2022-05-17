@@ -61,11 +61,11 @@ class GamePlay(State):
         self.__left_paddle.update(delta_time, self.__screen_size)
         if self.__ball.handle_colision(self.__left_paddle, self.__right_paddle, self.__screen_size):
             SoundMannager.instance().play_sound(cfg_item("sfx", "shot", "audio_file"))
-        if self.__ball.x < 0:
+        if self.__ball.position.x < 0:
             SoundMannager.instance().play_sound(cfg_item("sfx", "point", "audio_file"))            
             self.__right_score.update()
             self.__ball.reset()
-        elif self.__ball.x > self.__screen_size[0]:
+        elif self.__ball.position.x > self.__screen_size[0]:
             SoundMannager.instance().play_sound(cfg_item("sfx", "point", "audio_file"))        
             self.__left_score.update()
             self.__ball.reset()  
