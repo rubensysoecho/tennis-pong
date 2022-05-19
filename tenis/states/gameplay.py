@@ -1,7 +1,7 @@
 import pygame
 from importlib import resources
 from tenis.config import cfg_item
-from tenis.entities.paddle import Paddle, PaddleType
+from tenis.entities.paddle import PaddleType
 from tenis.entities.ball import Ball
 from tenis.entities.player import Player
 from tenis.entities.score import Score
@@ -102,7 +102,6 @@ class GamePlay(State):
 
     def __start(self):
         SoundMannager.instance().play_music(cfg_item("music", "music", "audio_file"))        
-
 
     def exit(self):
         pass
