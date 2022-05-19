@@ -28,8 +28,8 @@ class GamePlay(State):
         self.__ball = Ball(self.__screen_size[0] // 2, self.__screen_size[1] // 2, cfg_item("entities", "ball", "radius"), cfg_item("entities", "ball", "speed"), cfg_item("entities", "ball", "added_speed"), cfg_item("entities", "ball", "max_speed"), cfg_item("entities", "ball", "color"))
         self.__enemy = Enemy((self.__screen_size[0] // 2) - self.__paddle_size[0] // 2, self.__screen_size[1] // 2, self.__paddle_size, cfg_item("entities", "paddle", "enemy", "speed"), cfg_item("entities", "paddle", "enemy", "color"), cfg_item("entities", "paddle", "enemy", "added_height"))
         
-        self.__left_score = Score(0, self.__font)
-        self.__right_score = Score(0, self.__font)
+        self.__left_score = Score(0, cfg_item("entities", "score", "left_position"), self.__font)
+        self.__right_score = Score(0, cfg_item("entities", "score", "right_position"), self.__font)
         
         self.__max_score = cfg_item("entities","score","max")
         self.__winner = None
@@ -64,8 +64,10 @@ class GamePlay(State):
         self.__right_paddle.update(delta_time, self.__screen_size)
         self.__left_paddle.update(delta_time, self.__screen_size)
         self.__enemy.update(delta_time, self.__screen_size)
-        if self.__ball.handle_colision(self.__left_paddle, self.__right_paddle, self.__screen_size) or self.__enemy.handle_colision(self.__ball, self.__screen_size):                
-            SoundMannager.instance().play_sound(cfg_item("sfx", "shot", "audio_file"))                            
+        if self.__ball.handle_colision(self.__left_paddle, self.__right_paddle, self.__screen_size):                
+            SoundMannager.instance().play_sound(cfg_item("sfx", "shot", "audio_file")) 
+        if  self.__enemy.handle_colision(self.__ball, self.__screen_size):                          
+            SoundMannager.instance().play_sound(cfg_item("sfx", "error", "audio_file")) 
         if self.__ball.position.x < 0:            
             SoundMannager.instance().play_sound(cfg_item("sfx", "point", "audio_file"))            
             self.__right_score.update()
@@ -87,8 +89,8 @@ class GamePlay(State):
             self.game_over()
         pygame.display.update()
 
-    def render(self, screen):
-        screen.blit(self.__background_img, [0,0])
+    def render(self, screen):    
+        screen.blit(self.__background_img, [0,0])        
         self.__ball.render(screen)
         self.__right_paddle.render(screen)
         self.__left_paddle.render(screen)
@@ -99,7 +101,8 @@ class GamePlay(State):
             self.__reset(screen)        
 
     def __start(self):
-        SoundMannager.instance().play_music(cfg_item("music", "music", "audio_file"))
+        SoundMannager.instance().play_music(cfg_item("music", "music", "audio_file"))        
+
 
     def exit(self):
         pass

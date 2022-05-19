@@ -21,13 +21,15 @@
                 "left_color": [236, 24, 24]
             },
             "enemy": {
-                "color": [236, 24, 24],
+                "color": [255, 225, 255],
                 "speed": 5,
                 "added_height": 2
             }
         },                
         "score": {
-            "max": 10
+            "max": 10,
+            "left_position": [143, 20],
+            "right_position": [463, 20]
         }
     },
     "images" : {
@@ -35,7 +37,7 @@
             "file" : ["tenis.assets.images", "court.png"]
         }        
     }, 
-    "game_title" : "Tenis",
+    "game_title" : "Tenis",    
     "background_color": [0,0,0],
     "object_color": [255, 255, 255], 
     "screen_size" : [640,480] ,
@@ -57,6 +59,10 @@
         "point" : {
             "name" : "winning_point",
             "audio_file" : ["tenis.assets.sfx", "win.wav"]
+        },
+        "error" : {
+            "name" : "error",
+            "audio_file" : ["tenis.assets.sfx", "error.wav"]
         }
     },
     "music" : {

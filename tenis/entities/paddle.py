@@ -33,4 +33,6 @@ class Paddle:
         self.position = pygame.math.Vector2(self.x, self.y)
         self.width = paddle_size[0]
         self.height = paddle_size[1]
+        self.moving_down = False
+        self.moving_up = False
                 
