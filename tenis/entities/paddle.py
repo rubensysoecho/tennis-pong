@@ -16,7 +16,6 @@ class Paddle:
         self.height = size[1]
         self.speed = speed
         self.color = color
-        self.win_text = None
 
     def update(self, delta_time, screen_size):
         movement = pygame.math.Vector2(0.0, 0.0)
@@ -26,15 +25,12 @@ class Paddle:
             movement.y += self.speed
         self.position += movement * delta_time
         self.check_bounds(screen_size)
-        
-    def check_bounds(self, screen_size):
-        if self.position.y <= 0:
-            self.position.y = 0
-        if self.position.y >= screen_size[1] - self.height:
-            self.position.y = screen_size[1] - self.height
+
     def render(self, win):
         pygame.draw.rect(win, self.color, (self.position.x, self.position.y, self.width, self.height))                
 
-    def reset(self):
+    def reset(self, paddle_size):
         self.position = pygame.math.Vector2(self.x, self.y)
-        self.win_text = None
+        self.width = paddle_size[0]
+        self.height = paddle_size[1]
+                

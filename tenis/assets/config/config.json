@@ -8,15 +8,24 @@
     "entities" : {
         "ball" : {
             "speed": 6, 
+            "added_speed": 0.2,
+            "max_speed": 12,
             "radius": 7,
             "color": [252, 238, 4]
         },
-        "paddle" : {
-            "speed": 4,
+        "paddle" : {            
             "size": [20, 100],
-            "right_color": [24, 38, 236],
-            "left_color": [236, 24, 24]
-        },
+            "player" : {
+                "speed": 4,
+                "right_color": [24, 38, 236],
+                "left_color": [236, 24, 24]
+            },
+            "enemy": {
+                "color": [236, 24, 24],
+                "speed": 5,
+                "added_height": 2
+            }
+        },                
         "score": {
             "max": 10
         }
