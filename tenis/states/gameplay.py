@@ -60,7 +60,7 @@ class GamePlay(State):
             self.__ball.handle_input(key)
 
     def update(self, delta_time):        
-        self.__ball.update()          
+        self.__ball.update(delta_time)          
         self.__right_paddle.update(delta_time, self.__screen_size)
         self.__left_paddle.update(delta_time, self.__screen_size)
         self.__enemy.update(delta_time, self.__screen_size)
@@ -86,8 +86,7 @@ class GamePlay(State):
             self.__right_score.won = True
             self.__winner = self.__right_paddle
             self.__right_paddle.win_text = cfg_item("winning","right")                
-            self.game_over()
-        pygame.display.update()
+            self.game_over()        
 
     def render(self, screen):    
         screen.blit(self.__background_img, [0,0])        

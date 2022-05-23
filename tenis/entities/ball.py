@@ -18,11 +18,13 @@ class Ball:
         if key == pygame.K_SPACE:
             self.moving = True
 
-    def update(self):
+    def update(self, delta_time):
+        movement = pygame.math.Vector2(0.0, 0.0)
         if self.moving:
-            self.position.x += self.x_vel
-            self.position.y += self.y_vel
-
+            movement.x += self.x_vel
+            movement.y += self.y_vel        
+        self.position += movement * delta_time
+                
     def render(self, surface_dest):
         pygame.draw.circle(surface_dest, self.__color, (self.position.x, self.position.y), self.radius)
 
