@@ -22,11 +22,9 @@ class Enemy(Paddle):
                         if ball.x_vel < 0:
                             ball.x_vel -= ball.added_speed
                         else:
-                            ball.x_vel += ball.added_speed
-                        print("Ball speed:", ball.x_vel)                    
+                            ball.x_vel += ball.added_speed                                            
                     if self.height < screen_size[1] // 3:
-                        self.height += self.added_height       
-                        print("Enemy height: ", self.height, "Max Height: ", screen_size[1]//3)       
+                        self.height += self.added_height                               
                     ball.x_vel *= -1 
                     return True
         return False
