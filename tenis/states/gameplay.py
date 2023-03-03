@@ -100,7 +100,10 @@ class GamePlay(State):
             self.__reset(screen)        
 
     def __start(self):
-        SoundMannager.instance().play_music(cfg_item("music", "music", "audio_file"))        
+        try:
+            SoundMannager.instance().play_music(cfg_item("music", "music", "audio_file"))  
+        except:
+            print("Sound output device not found")   
 
     def exit(self):
         pass
